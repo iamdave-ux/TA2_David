@@ -17,7 +17,23 @@ $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(false);
 
-$routes->get('/', 'Pages::home');
-$routes->get('about', 'Pages::about');
-$routes->get('customers', 'Customers::index');
-$routes->get('users', 'Users::index');
+// Core Pages
+$routes->get('/', 'TaskController::index');
+$routes->get('/profile', 'TaskController::profile');
+$routes->get('/about', 'TaskController::about');
+
+// Authentication Routes
+$routes->get('/login', 'Auth::login');
+$routes->post('/login/process', 'Auth::loginProcess');
+$routes->get('/logout', 'Auth::logout');
+
+// Task CRUD Routes (Using TaskController)
+$routes->get('/tasks', 'TaskController::listAll');
+$routes->get('/tasks/new', 'TaskController::new');
+$routes->post('/tasks/create', 'TaskController::create');
+$routes->get('/tasks/edit/(:num)', 'TaskController::edit/$1');
+$routes->post('/tasks/update/(:num)', 'TaskController::update/$1');
+$routes->get('/tasks/delete/(:num)', 'TaskController::delete/$1');
+
+$routes->get('tasks/new', 'TaskController::new');
+$routes->post('tasks/create', 'TaskController::create');
